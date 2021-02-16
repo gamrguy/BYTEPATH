@@ -253,44 +253,44 @@ end
 function Achievements:draw()
     love.graphics.setCanvas(self.glitch_canvas)
     love.graphics.clear()
-        love.graphics.setColor(127, 127, 127)
-        love.graphics.rectangle('fill', 0, 0, gw, gh)
-        love.graphics.setColor(255, 255, 255)
-        self.area:drawOnly({'glitch'})
+	love.graphics.setColor(0.5, 0.5, 0.5)
+	love.graphics.rectangle('fill', 0, 0, gw, gh)
+	love.graphics.setColor(1, 1, 1)
+	self.area:drawOnly({'glitch'})
     love.graphics.setCanvas()
 
     love.graphics.setFont(self.font)
     love.graphics.setCanvas(self.main_canvas)
-        love.graphics.clear()
-        love.graphics.setColor(default_color)
-        love.graphics.print('~ ACHIEVEMENTS:', 8, 10)
+	love.graphics.clear()
+	love.graphics.setColor(default_color)
+	love.graphics.print('~ ACHIEVEMENTS:', 8, 10)
 
-        local pmx, pmy = love.mouse.getPosition()
-        local text = 'CONSOLE'
-        local w = self.font:getWidth(text)
-        local x, y = gw - w - 15, 5
-        love.graphics.setColor(0, 0, 0, 222)
-        love.graphics.rectangle('fill', x, y, w + 10, 16) 
-        love.graphics.setColor(255, 255, 255, 255)
-        love.graphics.print(text, x + 5, y + 3)
-        if pmx >= sx*x and pmx <= sx*(x + w + 10) and pmy >= sy*y and pmy <= sy*(y + 16) then love.graphics.rectangle('line', x, y, w + 10, 16) end
+	local pmx, pmy = love.mouse.getPosition()
+	local text = 'CONSOLE'
+	local w = self.font:getWidth(text)
+	local x, y = gw - w - 15, 5
+	love.graphics.setColor(0, 0, 0, 222/255)
+	love.graphics.rectangle('fill', x, y, w + 10, 16) 
+	love.graphics.setColor(1, 1, 1, 1)
+	love.graphics.print(text, x + 5, y + 3)
+	if pmx >= sx*x and pmx <= sx*(x + w + 10) and pmy >= sy*y and pmy <= sy*(y + 16) then love.graphics.rectangle('line', x, y, w + 10, 16) end
 
-        self.camera:attach()
-        for i, achievement in ipairs(achievement_names) do
-            self:drawAchievement(gw/2 + (i-1)*80, gh/2, achievement, i == self.achievement_index)
-        end
-        self.camera:detach()
+	self.camera:attach()
+	for i, achievement in ipairs(achievement_names) do
+		self:drawAchievement(gw/2 + (i-1)*80, gh/2, achievement, i == self.achievement_index)
+	end
+	self.camera:detach()
     love.graphics.setCanvas()
 
     love.graphics.setCanvas(self.final_canvas)
     love.graphics.clear()
-        love.graphics.setColor(255, 255, 255)
-        love.graphics.setBlendMode("alpha", "premultiplied")
-        love.graphics.setShader(shaders.glitch)
-        shaders.glitch:send('glitch_map', self.glitch_canvas)
-        love.graphics.draw(self.main_canvas, 0, 0, 0, 1, 1)
-        love.graphics.setShader()
-  		love.graphics.setBlendMode("alpha")
+	love.graphics.setColor(1, 1, 1)
+	love.graphics.setBlendMode("alpha", "premultiplied")
+	love.graphics.setShader(shaders.glitch)
+	shaders.glitch:send('glitch_map', self.glitch_canvas)
+	love.graphics.draw(self.main_canvas, 0, 0, 0, 1, 1)
+	love.graphics.setShader()
+	love.graphics.setBlendMode("alpha")
     love.graphics.setCanvas()
 
     if not disable_expensive_shaders then
@@ -299,7 +299,7 @@ function Achievements:draw()
         shaders.distort:send('horizontal_fuzz', 0.2*(distortion/10))
         shaders.distort:send('rgb_offset', 0.2*(distortion/10))
     end
-    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setColor(1, 1, 1, 1)
     love.graphics.setBlendMode('alpha', 'premultiplied')
     love.graphics.draw(self.final_canvas, 0, 0, 0, sx, sy)
     love.graphics.setBlendMode('alpha')
@@ -386,9 +386,9 @@ function Achievements:drawAchievement(x, y, achievement_name, active)
         love.graphics.setColor(default_color)
         love.graphics.print('escape', x - 1, y, 0, 1, 1, math.floor(self.font:getWidth('escape')/2), math.floor(self.font:getHeight()/2))
         local r, g, b = unpack(default_color)
-        love.graphics.setColor(r, g, b, 96)
+        love.graphics.setColor(r, g, b, 3/8)
         love.graphics.rectangle('fill', x + 16 - math.floor(self.font:getWidth('w')/2), y - math.floor(self.font:getHeight()/2), self.font:getWidth('w'), self.font:getHeight())
-        love.graphics.setColor(r, g, b, 255)
+        love.graphics.setColor(r, g, b, 1)
     end
 
     love.graphics.setColor(default_color)

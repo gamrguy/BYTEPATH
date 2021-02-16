@@ -1,10 +1,29 @@
+function color255To1(color, color2, color3, color4)
+    if type(color)=="number" then
+        if color4 then
+            return color / 255.0, color2 / 255.0, color3 / 255.0, color4 / 255.0
+        else
+            return color / 255.0, color2 / 255.0, color3 / 255.0, 255 / 255.0
+        end
+    else
+        local color_mod = {}
+        local i = 1
+        while color[i] do
+            color_mod[i] = color[i] / 255.0
+            i = i + 1
+        end
+        return color_mod
+    end
+    return color_mod
+end
+
 -- Colors
-default_color = {222, 222, 222}
-background_color = {16, 16, 16}
-ammo_color = {123, 200, 164}
-boost_color = {76, 195, 217}
-hp_color = {241, 103, 69}
-skill_point_color = {255, 198, 93}
+default_color = color255To1({222, 222, 222})
+background_color = color255To1({16, 16, 16})
+ammo_color = color255To1({123, 200, 164})
+boost_color = color255To1({76, 195, 217})
+hp_color = color255To1({241, 103, 69})
+skill_point_color = color255To1({255, 198, 93})
 
 default_colors = {default_color, hp_color, ammo_color, boost_color, skill_point_color}
 negative_colors = {
@@ -17,18 +36,18 @@ negative_colors = {
 all_colors = fn.append(default_colors, negative_colors)
 
 -- Skill tree colors
-white = {222, 222, 222}
-dark = {96, 96, 96}
-gray = {160, 160, 160}
-red = {222, 32, 32}
-green = {32, 222, 32}
-blue = {32, 32, 222}
-pink = {222, 32, 222}
-brown = {192, 96, 32}
-yellow = {222, 222, 32}
-orange = {222, 128, 32}
-bluegreen = {32, 222, 222}
-purple = {128, 32, 128}
+white = color255To1({222, 222, 222})
+dark = color255To1({96, 96, 96})
+gray = color255To1({160, 160, 160})
+red = color255To1({222, 32, 32})
+green = color255To1({32, 222, 32})
+blue = color255To1({32, 32, 222})
+pink = color255To1({222, 32, 222})
+brown = color255To1({192, 96, 32})
+yellow = color255To1({222, 222, 32})
+orange = color255To1({222, 128, 32})
+bluegreen = color255To1({32, 222, 222})
+purple = color255To1({128, 32, 128})
 
 
 -- Attacks

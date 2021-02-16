@@ -20,11 +20,11 @@ function Key:new(area, x, y, opts)
     self.dr = random(-10, 10)
 
     self.sx, self.sy = 1, 1
-    self.alpha = 255
+    self.alpha = 1
     self.timer:every(1, function()
         self.timer:tween(1, self, {alpha = 0, sx = 2, sy = 2}, 'in-out-cubic', function()
             self.sx, self.sy = 1, 1
-            self.alpha = 255
+            self.alpha = 1
         end)
     end)
 end
@@ -45,9 +45,9 @@ function Key:draw()
     draft:rhombus(self.x, self.y, 2*self.w, 2*self.h, 'line')
     draft:rhombus(self.x, self.y, 2.5*self.w, 2.5*self.h, 'line')
     love.graphics.pop()
-    love.graphics.setColor(222, 222, 222, self.alpha)
+    love.graphics.setColor(222/255, 222/255, 222/255, self.alpha)
     draft:rhombus(self.x, self.y, self.sx*3*self.w, self.sy*3*self.h, 'line')
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColor(1, 1, 1)
 end
 
 function Key:die()
