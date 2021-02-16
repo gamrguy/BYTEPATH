@@ -93,7 +93,7 @@ tree[39] = {x = 90, y = -222, types = {'HP'}, stats = {'4% Increased HP', 'hp_mu
 tree[40] = {x = 90, y = -258, types = {'HP'}, stats = {'2% Increased HP', 'hp_multiplier', 0.02}, links = {39, 41}, size = 1}
 tree[41] = {x = 90, y = -294, types = {'HP', 'Cycle'}, stats = {'4% Increased HP', 'hp_multiplier', 0.04, '10% Increased Chance to Spawn HP', 'hp_spawn_chance_multiplier', 0.10, 
 '2% Added Chance to Spawn HP on Cycle', 'spawn_hp_on_cycle_chance', 2, '2% Added Chance to Regain HP on Cycle', 'regain_hp_on_cycle_chance', 2}, links = {35, 42, 40, 38}, size = 2}
-tree[42] = {x = 90, y = -378, types = {'HP'}, stats = {'2% Increased HP', 'hp_multiplier', 2}, links = {41, 43, 64, 65}, size = 1}
+tree[42] = {x = 90, y = -378, types = {'HP'}, stats = {'2% Increased HP', 'hp_multiplier', 0.02}, links = {41, 43, 64, 65}, size = 1}
 tree[43] = {x = 30, y = -438, types = {'ASPD', 'HP'}, stats = {'20% Added Chance to Spawn Haste Area on HP Pickup', 'spawn_haste_area_on_hp_pickup_chance', 20}, links = {29, 42, 44}, size = 2}
 tree[44] = {x = 54, y = -462, types = {'ASPD'}, stats = {'3% Increased Attack Speed', 'aspd_multiplier', 0.03}, links = {43, 45}, size = 1}
 tree[45] = {x = 30, y = -486, types = {'ASPD'}, stats = {'3% Increased Attack Speed', 'aspd_multiplier', 0.03}, links = {44, 77, 350}, size = 1}
