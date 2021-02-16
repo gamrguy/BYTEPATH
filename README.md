@@ -1,4 +1,4 @@
-This is an updated version of BYTEPATH that contains a variety of bugfixes, code cleanup, and performance enhancements.
+This is an updated version of BYTEPATH that contains a variety of bugfixes, code cleanup, and performance enhancements. It is intended to replace the "BYTEPATH Unofficial Patch" which required a modding process.
 
 Owning the game on Steam is still required to use this version. However, due to the included MIT license, it is perfectly fine to edit the game to not use the Steam libraries, if desired.
 

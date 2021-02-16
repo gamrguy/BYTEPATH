@@ -283,6 +283,25 @@ function Stage:draw()
 		love.graphics.rectangle('line', 10, 34, 24, 4)
 	end
 
+	-- DEBUG CODE
+	-- Display the current amount of game objects, and what they are
+	--local font_height = math.floor(self.font:getHeight() / 2)
+	--love.graphics.setColor(default_color)
+	--love.graphics.print(self.area.projectile_amount, 10, 40, 0, 1, 1, 0, font_height)
+	--love.graphics.print(love.timer.getFPS(), 10, 50, 0, 1, 1, 0, font_height)
+	--[[local offset_y = 0
+	local offset_x = 0
+	for _, obj in ipairs(self.area.game_objects) do
+		if obj.class_name ~= "Projectile" and obj.class_name ~= "Ammo" then
+			love.graphics.print(obj.class_name, 10 + offset_x, 50 + offset_y, 0, 1, 1, 0, font_height)
+			offset_y = offset_y + 10
+			if offset_y % 200 == 0 then
+				offset_x = offset_x + 60
+				offset_y = 0
+			end
+		end
+	end]]
+
 	-- Key found text
 	if self.key_found then
 		local text = self.key_found
