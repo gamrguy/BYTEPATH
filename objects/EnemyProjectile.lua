@@ -62,12 +62,12 @@ end
 function EnemyProjectile:update(dt)
     EnemyProjectile.super.update(self, dt)
 
-    if self.orbitter then
+    if self.orbitter or (self.homing and self.invulnerable) then
         self.invulnerable = false
-        if self.x <= 0 then self.invulnerable = true end
-        if self.y <= 0 then self.invulnerable = true end
-        if self.x >= gw then self.invulnerable = true end
-        if self.y >= gh then self.invulnerable = true end
+        if self.x <= 0 then self.invulnerable = true
+		elseif self.y <= 0 then self.invulnerable = true
+        elseif self.x >= gw then self.invulnerable = true
+		elseif self.y >= gh then self.invulnerable = true end
     end
 
     if self.mine then self.r = self.r + self.rv*dt end
@@ -158,5 +158,8 @@ function EnemyProjectile:setHoming()
     self.orbitting = false
     self.orbitter = false
     self.homing = true
-    self.timer:after(random(0.8, 1.0), function() self.homing = false end)
+	self.timer:after(random(0.8, 1.0), function() 
+		self.homing = false
+		self.invulnerable = false
+	end)
 end
