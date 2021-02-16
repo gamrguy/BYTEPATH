@@ -61,7 +61,7 @@ tree[3] = {x = -30, y = 90, types = {'ASPD'}, stats = {'10% Increased Attack Spe
 tree[4] = {x = 90, y = 90, types = {'Luck'}, stats = {'10% Increased Luck', 'luck_multiplier', 0.10}, links = {1, 258, 261}, size = 2}
 tree[5] = {x = 30, y = 150, types = {'MVSPD'}, stats = {'10% Increased Movement Speed', 'mvspd_multiplier', 0.10}, links = {1, 183, 186}, size = 2}
 tree[6] = {x = -6, y = -6, types = {'Ammo'}, stats = {'4% Increased Ammo', 'ammo_multiplier', 0.04}, links = {2, 7}, size = 1}
-tree[7] = {x = -30, y = -30, types = {'Ammo'}, stats = {'8% Increased Ammo', 'ammo_multiplier', 0.04}, links = {6, 8, 71}, size = 1}
+tree[7] = {x = -30, y = -30, types = {'Ammo'}, stats = {'8% Increased Ammo', 'ammo_multiplier', 0.08}, links = {6, 8, 71}, size = 1}
 tree[8] = {x = -6, y = -54, types = {'Ammo'}, stats = {'4% Increased Ammo', 'ammo_multiplier', 0.04}, links = {7, 15}, size = 1}
 tree[12] = {x = 66, y = -6, types = {'HP'}, stats = {'2% Increased HP', 'hp_multiplier', 0.02}, links = {13, 2}, size = 1}
 tree[13] = {x = 90, y = -30, types = {'HP'}, stats = {'4% Increased HP', 'hp_multiplier', 0.04}, links = {14, 12, 88}, size = 1}
