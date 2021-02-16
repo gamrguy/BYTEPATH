@@ -1,3 +1,17 @@
+This is an updated version of BYTEPATH that contains a variety of bugfixes, code cleanup, and performance enhancements.
+
+Owning the game on Steam is still required to use this version. However, due to the included MIT license, it is perfectly fine to edit the game to not use the Steam libraries, if desired.
+
+Enhancements include:
+- Typo fixes
+- Passive tree fixes
+- Bugfixes
+- Memory leak fix
+- Some QoL
+- A couple of slight balance/gameplay consistency tweaks
+
+Original readme below.
+
 ## BYTEPATH
 
 A replayable arcade shooter with a focus on build theorycrafting. Use a massive skill tree, many classes and ships to create your own builds and defeat an ever increasing amount of enemies. 
