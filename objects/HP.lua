@@ -23,7 +23,11 @@ function HP:update(dt)
 
     self.shape:move(self.vx*dt, 0)
     self.shape:rotate(self.dr*dt)
-    self.x, self.y = self.shape:center()
+	self.x, self.y = self.shape:center()
+	
+	if self.x < -100 or self.x > gw + 100 then
+        self.dead = true
+    end
 end
 
 function HP:draw()
@@ -44,5 +48,4 @@ function HP:die()
     self.area:addGameObject('InfoText', self.x + table.random({-1, 1})*self.w, self.y + table.random({-1, 1})*self.h, {color = hp_color, text = '+HP'})
     self.area:addGameObject('ShapeEffect', self.x, self.y, {color = default_color, w = math.floor(self.w/3), shape = 'circle'})
     self.area:addGameObject('ShapeEffect2', self.x, self.y, {color = hp_color, w = self.w/2, shape = 'health'})
-
 end
