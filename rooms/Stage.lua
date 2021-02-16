@@ -124,9 +124,9 @@ function Stage:draw()
     love.graphics.setCanvas(self.shockwave_canvas)
     love.graphics.clear()
         camera:attach(0, 0, gw, gh)
-        love.graphics.setColor(127, 127, 127)
+        love.graphics.setColor(0.5, 0.5, 0.5)
         love.graphics.rectangle('fill', 0, 0, gw, gh)
-        love.graphics.setColor(255, 255, 255)
+        love.graphics.setColor(1, 1, 1)
         self.area:drawOnly({'shockwave'})
         camera:detach()
     love.graphics.setCanvas()
@@ -134,9 +134,9 @@ function Stage:draw()
     love.graphics.setCanvas(self.glitch_canvas)
     love.graphics.clear()
         camera:attach(0, 0, gw, gh)
-        love.graphics.setColor(127, 127, 127)
+        love.graphics.setColor(0.5, 0.5, 0.5)
         love.graphics.rectangle('fill', 0, 0, gw, gh)
-        love.graphics.setColor(255, 255, 255)
+        love.graphics.setColor(1, 1, 1)
         self.area:drawOnly({'glitch'})
         camera:detach()
     love.graphics.setCanvas()
@@ -152,204 +152,204 @@ function Stage:draw()
     love.graphics.setCanvas(self.rgb_canvas)
     love.graphics.clear()
     	camera:attach(0, 0, gw, gh)
-        love.graphics.setColor(127, 127, 127)
+        love.graphics.setColor(0.5, 0.5, 0.5)
         love.graphics.rectangle('fill', 0, 0, gw, gh)
-        love.graphics.setColor(255, 255, 255)
+        love.graphics.setColor(1, 1, 1)
     	self.area:drawOnly({'rgb'})
     	camera:detach()
     love.graphics.setCanvas()
 
     love.graphics.setCanvas(self.main_canvas)
     love.graphics.clear()
-        camera:attach(0, 0, gw, gh)
-        self.explode_particles:draw()
-        self.projectile_trails:draw()
-        self.area:drawExcept({'rgb_shift', 'rgb', 'shockwave', 'glitch', 'glitch_block'})
-        camera:detach()
+	camera:attach(0, 0, gw, gh)
+	self.explode_particles:draw()
+	self.projectile_trails:draw()
+	self.area:drawExcept({'rgb_shift', 'rgb', 'shockwave', 'glitch', 'glitch_block'})
+	camera:detach()
 
-        love.graphics.setFont(self.font)
+	love.graphics.setFont(self.font)
 
-        if self.tutorial then self.tutorial:draw() end
+	if self.tutorial then self.tutorial:draw() end
 
-        -- Score
-        love.graphics.setColor(default_color)
-        love.graphics.print(self.score, gw - 20, 10, 0, 1, 1, math.floor(self.font:getWidth(self.score)/2), math.floor(self.font:getHeight()/2))
-        love.graphics.setColor(255, 255, 255)
+	-- Score
+	love.graphics.setColor(default_color)
+	love.graphics.print(self.score, gw - 20, 10, 0, 1, 1, math.floor(self.font:getWidth(self.score)/2), math.floor(self.font:getHeight()/2))
+	love.graphics.setColor(1, 1, 1)
 
-        -- Skill points
-        love.graphics.setColor(skill_point_color)
-        love.graphics.print(skill_points .. 'SP', gw - 20, 22, 0, 1, 1, math.floor(self.font:getWidth(skill_points .. 'SP')/2), math.floor(self.font:getHeight()/2))
-        love.graphics.setColor(255, 255, 255)
+	-- Skill points
+	love.graphics.setColor(skill_point_color)
+	love.graphics.print(skill_points .. 'SP', gw - 20, 22, 0, 1, 1, math.floor(self.font:getWidth(skill_points .. 'SP')/2), math.floor(self.font:getHeight()/2))
+	love.graphics.setColor(1, 1, 1)
 
-        -- Ammo
-        local r, g, b = unpack(ammo_color)
-        local ammo, max_ammo = self.player.ammo, self.player.max_ammo
-        love.graphics.setColor(r, g, b)
-        love.graphics.rectangle('fill', gw/2 - 52, 16, math.max(48*(ammo/max_ammo), 0), 4)
-        love.graphics.setColor(r - 32, g - 32, b - 32)
-        love.graphics.rectangle('line', gw/2 - 52, 16, 48, 4)
-        love.graphics.print('AMMO', gw/2 - 52 + 24, 26, 0, 1, 1, math.floor(self.font:getWidth('AMMO')/2), math.floor(self.font:getHeight()/2))
-        love.graphics.print(math.floor(ammo) .. '/' .. math.floor(max_ammo), gw/2 - 52 + 24, 8, 0, 1, 1, 
-        math.floor(self.font:getWidth(math.floor(ammo) .. '/' .. math.floor(max_ammo))/2), math.floor(self.font:getHeight()/2))
-        love.graphics.setColor(255, 255, 255)
+	-- Ammo
+	local r, g, b = unpack(ammo_color)
+	local ammo, max_ammo = self.player.ammo, self.player.max_ammo
+	love.graphics.setColor(r, g, b)
+	love.graphics.rectangle('fill', gw/2 - 52, 16, math.max(48*(ammo/max_ammo), 0), 4)
+	love.graphics.setColor(r - 1/8, g - 1/8, b - 1/8)
+	love.graphics.rectangle('line', gw/2 - 52, 16, 48, 4)
+	love.graphics.print('AMMO', gw/2 - 52 + 24, 26, 0, 1, 1, math.floor(self.font:getWidth('AMMO')/2), math.floor(self.font:getHeight()/2))
+	love.graphics.print(math.floor(ammo) .. '/' .. math.floor(max_ammo), gw/2 - 52 + 24, 8, 0, 1, 1, 
+	math.floor(self.font:getWidth(math.floor(ammo) .. '/' .. math.floor(max_ammo))/2), math.floor(self.font:getHeight()/2))
+	love.graphics.setColor(1, 1, 1)
 
-        -- Boost 
-        local r, g, b = unpack(boost_color)
-        local boost, max_boost = self.player.boost, self.player.max_boost
-        love.graphics.setColor(r, g, b)
-        love.graphics.rectangle('fill', gw/2 + 4, 16, math.max(48*(boost/max_boost), 0), 4)
-        love.graphics.setColor(r - 32, g - 32, b - 32)
-        love.graphics.rectangle('line', gw/2 + 4, 16, 48, 4)
-        love.graphics.print('BOOST', gw/2 + 4 + 24, 26, 0, 1, 1, math.floor(self.font:getWidth('AMMO')/2), math.floor(self.font:getHeight()/2))
-        love.graphics.print(math.floor(boost) .. '/' .. math.floor(max_boost), gw/2 + 4 + 24, 8, 
-        0, 1, 1, math.floor(self.font:getWidth(math.floor(boost) .. '/' .. math.floor(max_boost))/2), math.floor(self.font:getHeight()/2))
-        love.graphics.setColor(255, 255, 255)
+	-- Boost 
+	local r, g, b = unpack(boost_color)
+	local boost, max_boost = self.player.boost, self.player.max_boost
+	love.graphics.setColor(r, g, b)
+	love.graphics.rectangle('fill', gw/2 + 4, 16, math.max(48*(boost/max_boost), 0), 4)
+	love.graphics.setColor(r - 1/8, g - 1/8, b - 1/8)
+	love.graphics.rectangle('line', gw/2 + 4, 16, 48, 4)
+	love.graphics.print('BOOST', gw/2 + 4 + 24, 26, 0, 1, 1, math.floor(self.font:getWidth('AMMO')/2), math.floor(self.font:getHeight()/2))
+	love.graphics.print(math.floor(boost) .. '/' .. math.floor(max_boost), gw/2 + 4 + 24, 8, 
+	0, 1, 1, math.floor(self.font:getWidth(math.floor(boost) .. '/' .. math.floor(max_boost))/2), math.floor(self.font:getHeight()/2))
+	love.graphics.setColor(1, 1, 1)
 
-        -- HP
-        local r, g, b = unpack(hp_color)
-        if self.player.energy_shield then r, g, b = unpack(default_color) end
-        local hp, max_hp = self.player.hp, self.player.max_hp
-        love.graphics.setColor(r, g, b)
-        love.graphics.rectangle('fill', gw/2 - 52, gh - 16, math.max(48*(hp/max_hp), 0), 4)
-        love.graphics.setColor(r - 32, g - 32, b - 32)
-        love.graphics.rectangle('line', gw/2 - 52, gh - 16, 48, 4)
-        if self.player.energy_shield then love.graphics.print('ES', gw/2 - 52 + 24, gh - 24, 0, 1, 1,math.floor(self.font:getWidth('ES'))/2, math.floor(self.font:getHeight()/2))
-        else love.graphics.print('HP', gw/2 - 52 + 24, gh - 24, 0, 1, 1, math.floor(self.font:getWidth('HP')/2), math.floor(self.font:getHeight()/2)) end
-        love.graphics.print(math.floor(hp) .. '/' .. math.floor(max_hp), gw/2 - 52 + 24, gh - 6, 0, 1, 1, 
-        math.floor(self.font:getWidth(math.floor(hp) .. '/' .. math.floor(max_hp))/2), math.floor(self.font:getHeight()/2))
-        love.graphics.setColor(255, 255, 255)
+	-- HP
+	local r, g, b = unpack(hp_color)
+	if self.player.energy_shield then r, g, b = unpack(default_color) end
+	local hp, max_hp = self.player.hp, self.player.max_hp
+	love.graphics.setColor(r, g, b)
+	love.graphics.rectangle('fill', gw/2 - 52, gh - 16, math.max(48*(hp/max_hp), 0), 4)
+	love.graphics.setColor(r - 1/8, g - 1/8, b - 1/8)
+	love.graphics.rectangle('line', gw/2 - 52, gh - 16, 48, 4)
+	if self.player.energy_shield then love.graphics.print('ES', gw/2 - 52 + 24, gh - 24, 0, 1, 1,math.floor(self.font:getWidth('ES'))/2, math.floor(self.font:getHeight()/2))
+	else love.graphics.print('HP', gw/2 - 52 + 24, gh - 24, 0, 1, 1, math.floor(self.font:getWidth('HP')/2), math.floor(self.font:getHeight()/2)) end
+	love.graphics.print(math.floor(hp) .. '/' .. math.floor(max_hp), gw/2 - 52 + 24, gh - 6, 0, 1, 1, 
+	math.floor(self.font:getWidth(math.floor(hp) .. '/' .. math.floor(max_hp))/2), math.floor(self.font:getHeight()/2))
+	love.graphics.setColor(1, 1, 1)
 
-        -- Cycle
-        local r, g, b = unpack(default_color)
-        love.graphics.setColor(r, g, b)
-        love.graphics.rectangle('fill', gw/2 + 4, gh - 16, 48*(self.player.cycle_timer/self.player.cycle_cooldown), 4)
-        love.graphics.setColor(r - 32, g - 32, b - 32)
-        love.graphics.rectangle('line', gw/2 + 4, gh - 16, 48, 4)
-        if self.player.threader then
-            love.graphics.rectangle('fill', gw/2 + 4, gh - 24, 48*(self.player.cycle_timer_2/self.player.cycle_cooldown_2), 4)
-            love.graphics.setColor(r - 32, g - 32, b - 32)
-            love.graphics.rectangle('line', gw/2 + 4, gh - 24, 48, 4)
-            love.graphics.rectangle('fill', gw/2 + 4, gh - 32, 48*(self.player.cycle_timer_3/self.player.cycle_cooldown_3), 4)
-            love.graphics.setColor(r - 32, g - 32, b - 32)
-            love.graphics.rectangle('line', gw/2 + 4, gh - 32, 48, 4)
-            love.graphics.rectangle('fill', gw/2 + 4, gh - 40, 48*(self.player.cycle_timer_4/self.player.cycle_cooldown_4), 4)
-            love.graphics.setColor(r - 32, g - 32, b - 32)
-            love.graphics.rectangle('line', gw/2 + 4, gh - 40, 48, 4)
-            love.graphics.print('CYCLE', gw/2 + 4 + 24, gh - 48, 0, 1, 1, math.floor(self.font:getWidth('CYCLE')/2), math.floor(self.font:getHeight()/2))
-        else love.graphics.print('CYCLE', gw/2 + 4 + 24, gh - 24, 0, 1, 1, math.floor(self.font:getWidth('CYCLE')/2), math.floor(self.font:getHeight()/2)) end
-        love.graphics.setColor(255, 255, 255)
+	-- Cycle
+	local r, g, b = unpack(default_color)
+	love.graphics.setColor(r, g, b)
+	love.graphics.rectangle('fill', gw/2 + 4, gh - 16, 48*(self.player.cycle_timer/self.player.cycle_cooldown), 4)
+	love.graphics.setColor(r - 1/8, g - 1/8, b - 1/8)
+	love.graphics.rectangle('line', gw/2 + 4, gh - 16, 48, 4)
+	if self.player.threader then
+		love.graphics.rectangle('fill', gw/2 + 4, gh - 24, 48*(self.player.cycle_timer_2/self.player.cycle_cooldown_2), 4)
+		love.graphics.setColor(r - 1/8, g - 1/8, b - 1/8)
+		love.graphics.rectangle('line', gw/2 + 4, gh - 24, 48, 4)
+		love.graphics.rectangle('fill', gw/2 + 4, gh - 32, 48*(self.player.cycle_timer_3/self.player.cycle_cooldown_3), 4)
+		love.graphics.setColor(r - 1/8, g - 1/8, b - 1/8)
+		love.graphics.rectangle('line', gw/2 + 4, gh - 32, 48, 4)
+		love.graphics.rectangle('fill', gw/2 + 4, gh - 40, 48*(self.player.cycle_timer_4/self.player.cycle_cooldown_4), 4)
+		love.graphics.setColor(r - 1/8, g - 1/8, b - 1/8)
+		love.graphics.rectangle('line', gw/2 + 4, gh - 40, 48, 4)
+		love.graphics.print('CYCLE', gw/2 + 4 + 24, gh - 48, 0, 1, 1, math.floor(self.font:getWidth('CYCLE')/2), math.floor(self.font:getHeight()/2))
+	else love.graphics.print('CYCLE', gw/2 + 4 + 24, gh - 24, 0, 1, 1, math.floor(self.font:getWidth('CYCLE')/2), math.floor(self.font:getHeight()/2)) end
+	love.graphics.setColor(1, 1, 1)
 
-        -- Rampage
-        if self.player.rampage then
-            local r, g, b = unpack(skill_point_color)
-            love.graphics.setColor(r, g, b)
-            love.graphics.rectangle('fill', gw - 34, gh - 16, 24*(1-(self.player.rampage_timer/self.player.rampage_cooldown)), 4)
-            love.graphics.setColor(r - 32, g - 32, b - 32)
-            love.graphics.rectangle('line', gw - 34, gh - 16, 24, 4)
-            love.graphics.print(self.player.rampage_counter, gw - 10 - 12, gh - 24, 0, 1, 1, math.floor(self.font:getWidth(self.player.rampage_counter)/2), math.floor(self.font:getHeight()/2))
-            love.graphics.setColor(255, 255, 255)
-        end
+	-- Rampage
+	if self.player.rampage then
+		local r, g, b = unpack(skill_point_color)
+		love.graphics.setColor(r, g, b)
+		love.graphics.rectangle('fill', gw - 34, gh - 16, 24*(1-(self.player.rampage_timer/self.player.rampage_cooldown)), 4)
+		love.graphics.setColor(r - 1/8, g - 1/8, b - 1/8)
+		love.graphics.rectangle('line', gw - 34, gh - 16, 24, 4)
+		love.graphics.print(self.player.rampage_counter, gw - 10 - 12, gh - 24, 0, 1, 1, math.floor(self.font:getWidth(self.player.rampage_counter)/2), math.floor(self.font:getHeight()/2))
+		love.graphics.setColor(1, 1, 1)
+	end
 
-        -- Difficulty
-        local r, g, b = unpack(default_color)
-        love.graphics.setColor(r, g, b)
-        love.graphics.rectangle('fill', 10, 10, 
-        24*(self.director.round_timer/(self.director.round_duration/(self.player.enemy_spawn_rate_multiplier*self.director.adaptive_difficulty_enemy_spawn_rate_multiplier))), 4)
-        love.graphics.setColor(r - 32, g - 32, b - 32)
-        love.graphics.rectangle('line', 10, 10, 24, 4)
-        love.graphics.print(self.director.difficulty, 38, 11, 0, 1, 1, 0, math.floor(self.font:getHeight()/2))
+	-- Difficulty
+	local r, g, b = unpack(default_color)
+	love.graphics.setColor(r, g, b)
+	love.graphics.rectangle('fill', 10, 10, 
+	24*(self.director.round_timer/(self.director.round_duration/(self.player.enemy_spawn_rate_multiplier*self.director.adaptive_difficulty_enemy_spawn_rate_multiplier))), 4)
+	love.graphics.setColor(r - 1/8, g - 1/8, b - 1/8)
+	love.graphics.rectangle('line', 10, 10, 24, 4)
+	love.graphics.print(self.director.difficulty, 38, 11, 0, 1, 1, 0, math.floor(self.font:getHeight()/2))
 
-        -- Resource
-        local r, g, b = unpack(ammo_color)
-        love.graphics.setColor(r, g, b)
-        love.graphics.rectangle('fill', 10, 18, 
-        24*(self.director.resource_timer/(self.director.resource_duration/(self.player.resource_spawn_rate_multiplier + self.director.first_10_runs_resource_spawn_rate))), 4)
-        love.graphics.setColor(r - 32, g - 32, b - 32)
-        love.graphics.rectangle('line', 10, 18, 24, 4)
+	-- Resource
+	local r, g, b = unpack(ammo_color)
+	love.graphics.setColor(r, g, b)
+	love.graphics.rectangle('fill', 10, 18, 
+	24*(self.director.resource_timer/(self.director.resource_duration/(self.player.resource_spawn_rate_multiplier + self.director.first_10_runs_resource_spawn_rate))), 4)
+	love.graphics.setColor(r - 1/8, g - 1/8, b - 1/8)
+	love.graphics.rectangle('line', 10, 18, 24, 4)
 
-        -- Attack
-        local r, g, b = unpack(skill_point_color)
-        love.graphics.setColor(r, g, b)
-        love.graphics.rectangle('fill', 10, 26, 24*(self.director.attack_timer/(self.director.attack_duration/self.player.attack_spawn_rate_multiplier)), 4)
-        love.graphics.setColor(r - 32, g - 32, b - 32)
-        love.graphics.rectangle('line', 10, 26, 24, 4)
+	-- Attack
+	local r, g, b = unpack(skill_point_color)
+	love.graphics.setColor(r, g, b)
+	love.graphics.rectangle('fill', 10, 26, 24*(self.director.attack_timer/(self.director.attack_duration/self.player.attack_spawn_rate_multiplier)), 4)
+	love.graphics.setColor(r - 1/8, g - 1/8, b - 1/8)
+	love.graphics.rectangle('line', 10, 26, 24, 4)
 
-        -- Item
-        if self.director.spawned_item_count < 5 then
-            local r, g, b = unpack(default_color)
-            love.graphics.setColor(r, g, b)
-            love.graphics.rectangle('fill', 10, 34, 24*(self.director.item_timer/(self.director.item_duration/(self.player.luck_multiplier*self.player.item_spawn_rate_multiplier + self.director.first_10_runs_item_spawn_rate))), 4)
-            love.graphics.setColor(r - 32, g - 32, b - 32)
-            love.graphics.rectangle('line', 10, 34, 24, 4)
-        end
+	-- Item
+	if self.director.spawned_item_count < 5 then
+		local r, g, b = unpack(default_color)
+		love.graphics.setColor(r, g, b)
+		love.graphics.rectangle('fill', 10, 34, 24*(self.director.item_timer/(self.director.item_duration/(self.player.luck_multiplier*self.player.item_spawn_rate_multiplier + self.director.first_10_runs_item_spawn_rate))), 4)
+		love.graphics.setColor(r - 1/8, g - 1/8, b - 1/8)
+		love.graphics.rectangle('line', 10, 34, 24, 4)
+	end
 
-        -- Key found text
-        if self.key_found then
-            local text = self.key_found
-            local w = self.font:getWidth(text)
-            local x, y = gw/2 - w/2 - 5, gh/2 - 12
-            love.graphics.setColor(default_color)
-            love.graphics.rectangle('fill', x, y, w + 10, 24)
-            love.graphics.setColor(background_color)
-            love.graphics.print(text, math.floor(x + 5), math.floor(y + 4))
-        end
+	-- Key found text
+	if self.key_found then
+		local text = self.key_found
+		local w = self.font:getWidth(text)
+		local x, y = gw/2 - w/2 - 5, gh/2 - 12
+		love.graphics.setColor(default_color)
+		love.graphics.rectangle('fill', x, y, w + 10, 24)
+		love.graphics.setColor(background_color)
+		love.graphics.print(text, math.floor(x + 5), math.floor(y + 4))
+	end
 
-        -- Pause, scorescreen
-        if self.scorescreen then self.scorescreen_object:draw() end
-        if self.paused then self.paused_object:draw() end
+	-- Pause, scorescreen
+	if self.scorescreen then self.scorescreen_object:draw() end
+	if self.paused then self.paused_object:draw() end
 
     love.graphics.setCanvas()
 
     love.graphics.setCanvas(self.temp_canvas)
     love.graphics.clear()
-        love.graphics.setColor(255, 255, 255)
-        love.graphics.setBlendMode("alpha", "premultiplied")
-  
-        love.graphics.setShader(shaders.rgb_shift)
-        shaders.rgb_shift:send('amount', {random(-self.rgb_shift_mag, self.rgb_shift_mag)/gw, random(-self.rgb_shift_mag, self.rgb_shift_mag)/gh})
-        love.graphics.draw(self.rgb_shift_canvas, 0, 0, 0, 1, 1)
-        love.graphics.setShader()
+	love.graphics.setColor(1, 1, 1)
+	love.graphics.setBlendMode("alpha", "premultiplied")
 
-        shaders.displacement:send('displacement_map', self.shockwave_canvas)
-        love.graphics.setShader(shaders.displacement)
-        love.graphics.draw(self.main_canvas, 0, 0, 0, 1, 1)
-        love.graphics.setBlendMode('alpha')
-        love.graphics.setShader()
+	love.graphics.setShader(shaders.rgb_shift)
+	shaders.rgb_shift:send('amount', {random(-self.rgb_shift_mag, self.rgb_shift_mag)/gw, random(-self.rgb_shift_mag, self.rgb_shift_mag)/gh})
+	love.graphics.draw(self.rgb_shift_canvas, 0, 0, 0, 1, 1)
+	love.graphics.setShader()
+
+	shaders.displacement:send('displacement_map', self.shockwave_canvas)
+	love.graphics.setShader(shaders.displacement)
+	love.graphics.draw(self.main_canvas, 0, 0, 0, 1, 1)
+	love.graphics.setBlendMode('alpha')
+	love.graphics.setShader()
   	love.graphics.setCanvas()
 
     love.graphics.setCanvas(self.temp_canvas_2)
     love.graphics.clear()
-        love.graphics.setColor(255, 255, 255)
-        love.graphics.setBlendMode("alpha", "premultiplied")
-        love.graphics.setShader(shaders.glitch)
-        shaders.glitch:send('glitch_map', self.glitch_canvas)
-        love.graphics.draw(self.temp_canvas, 0, 0, 0, 1, 1)
-        love.graphics.setShader()
-  		love.graphics.setBlendMode("alpha")
+	love.graphics.setColor(1, 1, 1)
+	love.graphics.setBlendMode("alpha", "premultiplied")
+	love.graphics.setShader(shaders.glitch)
+	shaders.glitch:send('glitch_map', self.glitch_canvas)
+	love.graphics.draw(self.temp_canvas, 0, 0, 0, 1, 1)
+	love.graphics.setShader()
+	love.graphics.setBlendMode("alpha")
     love.graphics.setCanvas()
 
     love.graphics.setCanvas(self.temp_canvas_3)
     love.graphics.clear()
-        love.graphics.setColor(255, 255, 255)
-        love.graphics.setBlendMode("alpha", "premultiplied")
-        love.graphics.setShader(shaders.rgb_shift)
-        shaders.rgb_shift:send('amount', {random(-self.rgb_shift_mag_2, self.rgb_shift_mag_2)/gw, random(-self.rgb_shift_mag_2, self.rgb_shift_mag_2)/gh})
-        love.graphics.draw(self.temp_canvas_2, 0, 0, 0, 1, 1)
-        love.graphics.setShader()
-  		love.graphics.setBlendMode("alpha")
+	love.graphics.setColor(1, 1, 1)
+	love.graphics.setBlendMode("alpha", "premultiplied")
+	love.graphics.setShader(shaders.rgb_shift)
+	shaders.rgb_shift:send('amount', {random(-self.rgb_shift_mag_2, self.rgb_shift_mag_2)/gw, random(-self.rgb_shift_mag_2, self.rgb_shift_mag_2)/gh})
+	love.graphics.draw(self.temp_canvas_2, 0, 0, 0, 1, 1)
+	love.graphics.setShader()
+	love.graphics.setBlendMode("alpha")
     love.graphics.setCanvas()
 
     love.graphics.setCanvas(self.final_canvas)
     love.graphics.clear()
-        love.graphics.setColor(255, 255, 255)
-        love.graphics.setBlendMode("alpha", "premultiplied")
-        if glitch ~= 0 then
-            love.graphics.setShader(shaders.rgb)
-            shaders.rgb:send('rgb_map', self.rgb_canvas)
-        end
-        love.graphics.draw(self.temp_canvas_3, 0, 0, 0, 1, 1)
-        love.graphics.setShader()
-  		love.graphics.setBlendMode("alpha")
+	love.graphics.setColor(1, 1, 1)
+	love.graphics.setBlendMode("alpha", "premultiplied")
+	if glitch ~= 0 then
+		love.graphics.setShader(shaders.rgb)
+		shaders.rgb:send('rgb_map', self.rgb_canvas)
+	end
+	love.graphics.draw(self.temp_canvas_3, 0, 0, 0, 1, 1)
+	love.graphics.setShader()
+	love.graphics.setBlendMode("alpha")
     love.graphics.setCanvas()
 
     if not disable_expensive_shaders then
@@ -358,7 +358,7 @@ function Stage:draw()
         shaders.distort:send('horizontal_fuzz', 0.6*(distortion/10))
         shaders.distort:send('rgb_offset', 0.4*(distortion/10))
     end
-    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setColor(1, 1, 1, 1)
     love.graphics.setBlendMode('alpha', 'premultiplied')
     love.graphics.draw(self.final_canvas, 0, 0, 0, sx, sy)
     love.graphics.setBlendMode('alpha')

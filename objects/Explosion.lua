@@ -6,7 +6,7 @@ function Explosion:new(area, x, y, opts)
     playGameExplosion()
 
     self.w = 16
-    self.color = opts.color or {255, 255, 255}
+    self.color = opts.color or {1, 1, 1}
     local w = opts.w or random(48, 56)
     if current_room.player.projectiles_explosions then
         self.timer:tween(0.1, self, {w = w*current_room.player.area_multiplier}, 'in-out-cubic', function()
@@ -65,7 +65,7 @@ function Explosion:draw()
     if current_room.player.projectiles_explosions then return end
     love.graphics.setColor(self.current_color)
     love.graphics.rectangle('fill', self.x - self.w/2, self.y - self.w/2, self.w, self.w)
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColor(1, 1, 1)
 end
 
 function Explosion:destroy()
