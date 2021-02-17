@@ -420,6 +420,10 @@ function SkillTree:draw()
 			love.graphics.setColor(default_color)
 			for i = 1, #stats, 3 do
 				love.graphics.print(stats[i], math.floor(mx + 8), math.floor(my + font:getHeight()/2 + math.floor(i/3)*font:getHeight()))
+				-- DEBUG (shows internal values)
+				--love.graphics.print(stats[i], math.floor(mx + 8), math.floor(my + font:getHeight()/2 + math.floor(i)*font:getHeight()))
+				--love.graphics.print(stats[i+1], math.floor(mx + 58), math.floor(my + font:getHeight()/2 + (i+1)*font:getHeight()))
+				--love.graphics.print(tostring(stats[i+2]), math.floor(mx + 58), math.floor(my + font:getHeight()/2 + (i+2)*font:getHeight()))
 			end
 			love.graphics.pop()
 		end

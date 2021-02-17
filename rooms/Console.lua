@@ -50,7 +50,7 @@ function Console:new()
     fadeVolume('game', 1, 0.0)
 
     self.timer:every(0.05, function()
-        local r = 127 + love.math.random(-8, 8)
+        local r = 0.5 + love.math.random(-1/32, 1/32)
         table.insert(self.glitches, GlitchDisplacementC(love.math.random(0, gw), love.math.random(0, gh), love.math.random(16, 48), love.math.random(8, 16), {r, r, r}))
     end)
 
