@@ -1987,7 +1987,7 @@ function Player:setClasses()
 
     if self.bomber then
         self.area_multiplier = self.area_multiplier + 0.25
-        self.attack_twice_chance = self.attack_twice_chance + 0.25
+        self.attack_twice_chance = self.attack_twice_chance + 25
     end
 
     if self.zoomer then
