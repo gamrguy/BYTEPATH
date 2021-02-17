@@ -982,7 +982,7 @@ function Player:grantRandomBuff()
         self.timer:after(4*self.stat_boost_duration_multiplier, function() self.aspd_boosting = false end)
         self.area:addGameObject('InfoText', self.x, self.y, {text = 'ASPD Boost!', color = ammo_color})
 
-    elseif buff == 'MVPSD' then
+    elseif buff == 'MVSPD' then
         self.mvspd_boosting = true
         self.timer:after(4*self.stat_boost_duration_multiplier, function() self.mvspd_boosting = false end)
         self.area:addGameObject('InfoText', self.x, self.y, {text = 'MVSPD Boost!'})
