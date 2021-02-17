@@ -720,7 +720,7 @@ function Player:cycle()
     self:onCycle()
 end
 
-function Player:shoot()
+function Player:shoot(attackingTwice)
     if self.paused then return end
 
     local d = 1.2*self.w
@@ -861,10 +861,10 @@ function Player:shoot()
         camera:shake(4, 60, 0.25)
     end
 
-    if self.chances.attack_twice_chance:next() then
+    if not attackingTwice and self.chances.attack_twice_chance:next() then
         self.timer:after(self.shoot_cooldown/2, function() 
             -- self.area:addGameObject('InfoText', self.x, self.y, {text = 'Double Attack!'})
-            self:shoot() 
+            self:shoot(true)
         end)
     end
 
