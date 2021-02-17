@@ -12,7 +12,13 @@ end
 
 function Drone:update(dt)
     Drone.super.update(self, dt)
-    self.x, self.y = self.player.x + 20*math.cos(self.player.r + self.rd), self.player.y + 20*math.sin(self.player.r + self.rd)
+
+	if self.player.dead then
+		self.dead = true
+		return
+	end
+
+	self.x, self.y = self.player.x + 20*math.cos(self.player.r + self.rd), self.player.y + 20*math.sin(self.player.r + self.rd)
     self.r = self.player.r
     self.shoot_cooldown = self.player.shoot_cooldown
 

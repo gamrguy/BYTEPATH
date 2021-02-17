@@ -10,6 +10,7 @@ _G.love = {filesystem = {newFileData = function()
 	end}
 end, write = function(_, s)
 	love.s = s
+	return true
 end}}
 
 local bitser = require 'bitser'
@@ -20,6 +21,10 @@ end
 
 local function test_serdeser(value)
 	assert.are.same(serdeser(value), value)
+end
+
+local function test_serdeser_idempotent(value)
+	assert.are.same(bitser.dumps(serdeser(value)), bitser.dumps(value))
 end
 
 describe("bitser", function()
@@ -151,7 +156,7 @@ describe("bitser", function()
 	end)
 	it("serializes Slither instances", function()
 		local class = require("slither")
-		local Horse = class.private 'Horse' {
+		local Horse = class 'Horse' {
 			__attributes__ = {bitser.registerClass},
 			__init__ = function(self, name)
 				self.name = name
@@ -269,14 +274,17 @@ describe("bitser", function()
 		assert.has_error(function() bitser.registerClass('Horse', {mane = 'majestic'}) end, "no deserializer given for unsupported class library")
 	end)
 	it("cannot deserialize values from unassigned type bytes", function()
-		assert.has_error(function() bitser.loads("\251") end, "unsupported serialized type 251")
-		assert.has_error(function() bitser.loads("\252") end, "unsupported serialized type 252")
-		assert.has_error(function() bitser.loads("\253") end, "unsupported serialized type 253")
 		assert.has_error(function() bitser.loads("\254") end, "unsupported serialized type 254")
 		assert.has_error(function() bitser.loads("\255") end, "unsupported serialized type 255")
 	end)
 	it("can load from raw data", function()
 		assert.are.same(bitser.loadData(ffi.new("uint8_t[4]", 195, 103, 118, 120), 4), "gvx")
+	end)
+	it("will not read from zero length data", function()
+		assert.has_error(function() bitser.loadData(ffi.new("uint8_t[1]", 0), 0) end)
+	end)
+	it("will not read from zero length string", function()
+		assert.has_error(function() bitser.loads("") end)
 	end)
 	it("will not read past the end of the buffer", function()
 		assert.has_error(function() bitser.loadData(ffi.new("uint8_t[4]", 196, 103, 118, 120), 4) end)
@@ -289,9 +297,55 @@ describe("bitser", function()
 		bitser.loadData(ffi.new("uint8_t[4]", 195, 103, 118, 120), 4)
 		test_serdeser("bitser")
 	end)
-	it("it can dump and load LÖVE files", function()
+	it("can dump and load LÖVE files", function()
 		local v = {value = "value"}
 		bitser.dumpLoveFile("some_file_name", v)
 		assert.are.same(v, bitser.loadLoveFile("some_file_name"))
+	end)
+	it("can read and write simple cdata", function()
+		test_serdeser(ffi.new('double', 42.5))
+	end)
+	it("can read and write cdata with a registered ctype", function()
+		pcall(ffi.cdef,[[
+			struct some_struct {
+				int a;
+				double b;
+			};
+		]])
+		local value = ffi.new('struct some_struct', 42, 1.25)
+		bitser.register('struct_type', ffi.typeof(value))
+		test_serdeser_idempotent(value)
+		bitser.unregister('struct_type')
+	end)
+	it("can read and write cdata without registering its ctype", function()
+		pcall(ffi.cdef,[[
+			struct some_struct {
+				int a;
+				double b;
+			};
+		]])
+		local value = ffi.new('struct some_struct', 42, 1.25)
+		test_serdeser_idempotent(value)
+	end)
+	it("cannot read from anonymous structs", function()
+		local v = bitser.dumps(ffi.new('struct { int a; }'))
+		assert.has_error(function() bitser.loads(v) end)
+	end)
+	it("can read and write simple multiple cdata of the same ctype without getting confused", function()
+		test_serdeser({ffi.new('double', 42.5), ffi.new('double', 12), ffi.new('double', 0.01)})
+	end)
+	it("can read and write metatables by default", function()
+		local t = setmetatable({foo="foo"}, {__index = {bar="bar"}})
+		test_serdeser(t)
+		assert.are.same(getmetatable(t), getmetatable(serdeser(t)))
+		assert.are.same(serdeser(t).bar, "bar")
+	end)
+	it("ignores metatables if the feature is explicitly disabled", function()
+		bitser.includeMetatables(false)
+		local t = setmetatable({foo="foo"}, {__index = {bar="bar"}})
+		test_serdeser(t)
+		assert.is_nil(getmetatable(serdeser(t)))
+		assert.is_nil(serdeser(t).bar)
+		bitser.includeMetatables(true) -- revert back to default for potential other tests
 	end)
 end)

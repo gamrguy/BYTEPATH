@@ -30,7 +30,8 @@ function love.load()
     time = 0
     start_time = os.time()
     start_date = os.date("*t")
-    trailer_mode = true
+	trailer_mode = true
+	debug_mode = false
 
     love.filesystem.setIdentity('BYTEPATH')
     love.graphics.setDefaultFilter('nearest', 'nearest')
@@ -99,6 +100,7 @@ function love.load()
     input:bind('select', 'escape')
     input:bind('start', 'return')
     input:bind('tab', 'tab')
+	input:bind('f1', 'debug') -- debug mode
 
     load()
 
@@ -142,6 +144,11 @@ end
 
 function love.update(dt)
     local start_time = os.clock()
+
+	-- Enable/disable debug mode
+	if input.binds['debug'] and input:pressed('debug') then
+		debug_mode = not debug_mode
+	end
 
     time = time + dt
     timer:update(dt*slow_amount)
@@ -484,45 +491,45 @@ function type_name(o)
 end
 
 function love.run()
-    if love.math then love.math.setRandomSeed(os.time()) end
-    if love.load then love.load(arg) end
-    if love.timer then love.timer.step() end
+	if love.math then love.math.setRandomSeed(os.time()) end
+	if love.load then love.load(arg) end
+	if love.timer then love.timer.step() end
 
-    local dt = 0
-    local fixed_dt = 1/60
-    local accumulator = 0
+	local dt = 0
+	local fixed_dt = 1/60
+	local accumulator = 0
 
-    while true do
-        if love.event then
-            love.event.pump()
-            for name, a, b, c, d, e, f in love.event.poll() do
-                if name == 'quit' then
-                    if not love.quit or not love.quit() then
-                        return a
-                    end
-                end
-                love.handlers[name](a, b, c, d, e, f)
-            end
-        end
+	return function()
+		if love.event then
+			love.event.pump()
+			for name, a, b, c, d, e, f in love.event.poll() do
+				if name == 'quit' then
+					if not love.quit or not love.quit() then
+						return a or 0
+					end
+				end
+				love.handlers[name](a, b, c, d, e, f)
+			end
+		end
 
-        if love.timer then
-            love.timer.step()
-            dt = love.timer.getDelta()
-        end
+		if love.timer then
+			love.timer.step()
+			dt = love.timer.getDelta()
+		end
 
-        accumulator = accumulator + dt
-        while accumulator >= fixed_dt do
-            if love.update then love.update(fixed_dt) end
-            accumulator = accumulator - fixed_dt
-        end
+		accumulator = accumulator + dt
+		while accumulator >= fixed_dt do
+			if love.update then love.update(fixed_dt) end
+			accumulator = accumulator - fixed_dt
+		end
 
-        if love.graphics and love.graphics.isActive() then
-            love.graphics.clear(love.graphics.getBackgroundColor())
-            love.graphics.origin()
-            if love.draw then love.draw() end
-            love.graphics.present()
-        end
+		if love.graphics and love.graphics.isActive() then
+			love.graphics.clear(love.graphics.getBackgroundColor())
+			love.graphics.origin()
+			if love.draw then love.draw() end
+			love.graphics.present()
+		end
 
-        if love.timer then love.timer.sleep(0.001) end
-    end
+		if love.timer then love.timer.sleep(0.001) end
+	end
 end

@@ -610,15 +610,21 @@ function Player:update(dt)
     self.boost_timer = self.boost_timer + dt
     if self.boost_timer > self.boost_cooldown then self.can_boost = true end
     self.max_v = self.base_max_v
-    self.boosting = false
+    --self.boosting = false
     if self.turner then
         self.boosting_up = false
         self.boosting_down = false
     end
-    if input:pressed('up') and self.boost > 1 and self.can_boost then self:onBoostStart() end
-    if input:released('up') then self:onBoostEnd() end
-    if input:down('up') and self.boost > 1 and self.can_boost then 
-        self.boosting = true
+    --if input:pressed('up') and self.boost > 1 and self.can_boost then self:onBoostStart() end
+	if input:released('up') and self.boosting then 
+		self.boosting = false
+		self:onBoostEnd() 
+	end
+	if input:down('up') and self.boost > 1 and self.can_boost then 
+		if not self.boosting then
+			self.boosting = true
+			self:onBoostStart()
+		end
         if self.turner then self.boosting_up = true end
         self.max_v = 1.5*self.base_max_v*self.boost_effectiveness_multiplier
         self.boost = self.boost - 50*dt
@@ -630,10 +636,16 @@ function Player:update(dt)
             self:onBoostEnd()
         end
     end
-    if input:pressed('down') and self.boost > 1 and self.can_boost then self:onBoostStart() end
-    if input:released('down') then self:onBoostEnd() end
+    --if input:pressed('down') and self.boost > 1 and self.can_boost then self:onBoostStart() end
+	if input:released('down') and self.boosting then 
+		self.boosting = false
+		self:onBoostEnd() 
+	end
     if input:down('down') and self.boost > 1 and self.can_boost then 
-        self.boosting = true
+        if not self.boosting then
+			self.boosting = true
+			self:onBoostStart()
+		end
         if self.turner then self.boosting_down = true end
         self.max_v = 0.5*self.base_max_v*(2-self.boost_effectiveness_multiplier)
         self.boost = self.boost - 50*dt

@@ -64,7 +64,8 @@ function Stage:new()
     input:bind('q', 'restart')
     input:bind('fleft', 'restart')
     input:bind('fdown', 'restart')
-    input:bind('tab', 'tab')
+	input:bind('tab', 'tab')
+	input:bind('f1', 'debug') -- debug mode
 
     fadeVolume('music', 5, 0.5)
     fadeVolume('game', 5, 1)

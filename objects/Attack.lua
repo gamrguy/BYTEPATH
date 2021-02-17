@@ -43,6 +43,7 @@ function Attack:update(dt)
 end
 
 function Attack:draw()
+	love.graphics.setFont(self.font)
     pushRotateScale(self.x, self.y, 0, random(0.95, 1.05), random(0.95, 1.05))
     love.graphics.setColor(attacks[self.attack].color)
     if self.attack == 'Spread' or self.attack == 'Rapid' then love.graphics.setColor(table.random(all_colors)) end

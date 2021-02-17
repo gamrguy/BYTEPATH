@@ -48,8 +48,8 @@ local resultname = "serialisation time in seconds"
 function love.load()
 	cases = love.filesystem.getDirectoryItems("cases")
 	state = 'select_case'
-	love.graphics.setBackgroundColor(255, 230, 220)
-	love.graphics.setColor(40, 30, 0)
+	love.graphics.setBackgroundColor(1, 230/256, 220/256)
+	love.graphics.setColor(40/256, 30/256, 0/256)
 	love.window.setTitle("Select a benchmark testcase")
 end
 
@@ -100,6 +100,12 @@ function love.draw()
 		for i, case in ipairs(cases) do
 			love.graphics.print(case, selected_case == i and 60 or 20, i * 20)
 		end
+		local i = 2
+		love.graphics.print('serialisation libraries installed:', 200, 20)
+		for sername in pairs(sers) do
+			love.graphics.print(sername, 200, i * 20)
+			i = i + 1
+		end
 	elseif state == 'calculate_results' then
 		love.graphics.print("Running benchmark...", 20, 20)
 		love.graphics.print("This may take a while", 20, 40)
@@ -111,6 +117,7 @@ function love.draw()
 		resultname = "serialisation time in seconds"
 		results_size = {}
 		results_deser = {}
+		errors = {}
 		for sername, serializer in pairs(sers) do
 			results_ser[sername] = math.huge
 			results_deser[sername] = math.huge
@@ -126,7 +133,9 @@ function love.draw()
 					end
 					return os.clock() - t
 				end)
-				if success and diff < results_ser[sername] then
+				if not success and not errors[sername] then
+					errors[sername] = diff
+				elseif success and diff < results_ser[sername] then
 					results_ser[sername] = diff
 				end
 				if try == 1 then
@@ -145,7 +154,9 @@ function love.draw()
 					end
 					return os.clock() - t
 				end)
-				if success and diff < results_deser[sername] then
+				if not success and not errors[sername] then
+					errors[sername] = diff
+				elseif success and diff < results_deser[sername] then
 					results_deser[sername] = diff
 				end
 			end
@@ -168,9 +179,10 @@ function love.draw()
 		for sername, result in pairs(results) do
 			love.graphics.print(sername, 20, i * 20)
 			if result == math.huge then
-				love.graphics.setColor(220, 30, 0)
+				love.graphics.setColor(220/256, 30/256, 0)
 				love.graphics.rectangle('fill', 100, i * 20, 780 - 100, 18)
-				love.graphics.setColor(40, 30, 0)
+				love.graphics.setColor(40/256, 30/256, 0)
+				love.graphics.print(errors[sername], 102, i * 20 + 2)
 			else
 				love.graphics.rectangle('fill', 100, i * 20, (780 - 100) * (result - results_min) / (results_max - results_min), 18)
 			end

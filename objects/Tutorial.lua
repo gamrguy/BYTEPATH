@@ -43,5 +43,5 @@ function Tutorial:draw()
     love.graphics.print('BOOST UP', 10 + 12 + 4 + 24, gh - 20 - 4 - 24 - 4 - 24 - 8, 0, 1, 1, math.floor(font:getWidth('BOOST UP')/2), math.floor(font:getHeight()/2))
     love.graphics.print('BOOST DOWN', 10 + 12 + 4 + 24, gh - 20 + 4, 0, 1, 1, math.floor(font:getWidth('BOOST DOWN')/2), math.floor(font:getHeight()/2))
 
-    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setColor(1, 1, 1, 1)
 end

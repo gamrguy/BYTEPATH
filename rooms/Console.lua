@@ -43,7 +43,8 @@ function Console:new()
     input:bind('fleft', 'return')
     input:bind('select', 'escape')
     input:bind('start', 'start')
-    input:bind('tab', 'tab')
+	input:bind('tab', 'tab')
+	input:bind('f1', 'debug') -- debug mode
 
     save()
     fadeVolume('music', 1, 0.05)
