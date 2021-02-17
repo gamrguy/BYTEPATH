@@ -1517,9 +1517,22 @@ function Player:setStats()
 
     -- Start with attack
     local starting_attacks = {
-        self.start_with_double and 'Double', self.start_with_triple and 'Triple', self.start_with_rapid and 'Rapid', self.start_with_spread and 'Spread', self.start_with_back and 'Back',
-        self.start_with_side and 'Side', self.start_with_homing and 'Homing', self.start_with_blast and 'Blast', self.start_with_spin and 'Spin', self.start_with_lightning and 'Lightning',
-        self.start_with_flame and 'Flame', self.start_with_2split and '2Split', self.start_with_4split and '4Split', self.start_with_explode and 'Explode', self.start_with_laser and 'Laser',
+		self.start_with_double and 'Double', 
+		self.start_with_triple and 'Triple', 
+		self.start_with_rapid and 'Rapid', 
+		self.start_with_spread and 'Spread', 
+		self.start_with_back and 'Back',
+		self.start_with_side and 'Side', 
+		self.start_with_homing and 'Homing', 
+		self.start_with_blast and 'Blast', 
+		self.start_with_spin and 'Spin', 
+		self.start_with_bounce and 'Bounce', -- start with bounce :3
+		self.start_with_lightning and 'Lightning',
+		self.start_with_flame and 'Flame', 
+		self.start_with_2split and '2Split', 
+		self.start_with_4split and '4Split', 
+		self.start_with_explode and 'Explode', 
+		self.start_with_laser and 'Laser',
     }
     starting_attacks = fn.select(starting_attacks, function(k, v) return v end)
     if #starting_attacks > 0 then self:setAttack(table.random(starting_attacks)) end
